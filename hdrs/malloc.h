@@ -47,6 +47,7 @@ zone_t					*find_zone(void *alloc);
 block_t					*find_block(zone_t *zone, void *alloc);
 void					*add_block_to_zone(zone_t *zone, size_t sz);
 
+size_t					align_size(size_t size, size_t alignment);
 size_t					ft_strlen(const char *s);
 void					ft_putnbr(unsigned long n);
 void					ft_puthexa(unsigned long n);

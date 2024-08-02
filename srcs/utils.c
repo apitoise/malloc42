@@ -1,5 +1,11 @@
 #include "malloc.h"
 
+size_t		align_size(size_t size, size_t alignment) {
+	if (!size)
+		return (alignment);
+	return (((((size) - 1) / alignment) * alignment) + alignment);
+}
+
 size_t	ft_strlen(const char *s) {
 	size_t len = 0;
 	for (; s[len]; ++len);

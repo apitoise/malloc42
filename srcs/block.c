@@ -3,6 +3,7 @@
 static void			*add_block(void *ptr, size_t block_sz, void *next) {
 	block_t	*new;
 
+	ptr = (void *)align_size((size_t)ptr, 2 * sizeof(size_t));
 	new = ptr;
 	new->sz = block_sz;
 	new->next = next;
@@ -38,8 +39,10 @@ void			*add_block_to_zone(zone_t *zone, size_t sz) {
 	int		in_use_sz;
 	block_t	*block = NULL;
 
-	if (!zone->blocks)
-		zone->blocks = (block = add_block((void *)zone + sizeof(zone_t), block_sz, NULL));
+	if (!zone->blocks) {
+		block = add_block((void *)zone + sizeof(zone_t), block_sz, NULL);
+		zone->blocks = block;
+	}
 	else {
 		in_use_sz = get_in_use_sz_zone(zone);
 		if (zone->sz - in_use_sz > block_sz)

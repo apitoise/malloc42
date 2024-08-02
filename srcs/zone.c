@@ -13,7 +13,7 @@ size_t	get_zone_sz(size_t sz) {
 
 	alloc_sz = get_alloc_sz(sz + sizeof(block_t));
 	if (sz + sizeof(block_t) <= SMALL_ALLOC) {
-		new = (NB_ALLOC / (PAGE_SZ / alloc_sz) + 1 * PAGE_SZ);
+		new = (NB_ALLOC / (PAGE_SZ / alloc_sz) + 1) * PAGE_SZ;
 		if (new - NB_ALLOC * alloc_sz < sizeof(zone_t))
 			new += PAGE_SZ;
 	}
@@ -22,6 +22,7 @@ size_t	get_zone_sz(size_t sz) {
 		if (new - alloc_sz < sizeof(zone_t))
 			new += PAGE_SZ;
 	}
+	new = align_size(new, 16);
 	return (new);
 }
 
@@ -33,6 +34,7 @@ zone_t	*init_zone(size_t sz) {
 	new->sz = zone_sz;
 	new->blocks = NULL;
 	new->next = NULL;
+	new = (zone_t *)align_size((size_t)new, 2 * sizeof(size_t));
 	return (new);
 }
 

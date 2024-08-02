@@ -20,7 +20,7 @@ static void	free_block(zone_t *zone, void *block) {
 	block_t	*ptr, *prev = NULL;
 
 	for (ptr = zone->blocks;
-		(ptr && ((void *)ptr + sizeof(block_t)) != block);
+		ptr && ((void *)ptr + sizeof(block_t)) != block;
 		prev = ptr, ptr = ptr->next);
 	if (!prev)
 		zone->blocks = ptr->next;
