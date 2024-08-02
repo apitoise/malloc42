@@ -6,7 +6,7 @@ CC			=	gcc
 CC_FLAGS	=	-Wall -Wextra -Werror -fPIC
 RM			=	rm -rf
 
-DIR_HEADERS		=	./hdrs/
+DIR_HEADERS		=	./includes/
 
 DIR_SRCS		=	./srcs/
 
